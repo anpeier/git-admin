@@ -3,7 +3,7 @@ const { Commits } = require("./../models/student");
 const axios = require("axios");
 const instance = axios.create({
   baseURL: "https://api.github.com/",
-//   timeout: 3000,
+  // timeout: 5000,
   headers: { Accept: "application/vnd.github.v3+json" }
 });
 
@@ -38,7 +38,8 @@ const getUserAllEvents = async (ctx, gitName) => {
           let commitDate = item.created_at;
           let obj = {
             commits,
-            commitDate
+            commitDate,
+            'gitUserName': gitName
           };
           data.push(obj);
         });
