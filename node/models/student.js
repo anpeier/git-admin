@@ -13,6 +13,7 @@ const studentSchema = new mongoose.Schema(
     },
     avatar: String,
     git_url: String,
+    class_name: String,
     lastCommitTime: Date
   },
   { timestamps: { createdAt: "created", updatedAt: "updated" } }
@@ -29,8 +30,10 @@ const commitSchema = new mongoose.Schema(
   },
   { timestamps: { createdAt: "created", updatedAt: "updated" } }
 );
+
 const Student = mongoose.model("Student", studentSchema);
 const Commits = mongoose.model("Commits", commitSchema);
+
 module.exports = {
   Student,
   Commits

@@ -21,7 +21,9 @@ app.use(koaBody({
 }))
 
 const users = require('./routes/user.js')
+const classes = require('./routes/class.js')
 app.use(users.routes())
+app.use(classes.routes())
 
 // app.use(router.routes())
 // app.use(router.allowedMethods())
