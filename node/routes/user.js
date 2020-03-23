@@ -1,6 +1,7 @@
 const Router = require("koa-router");
 const usersRouter = new Router({ prefix: "/students" });
 const { Student, Commits } = require("./../models/student");
+const Class = require("./../models/class");
 const { getGitUserInfo, getUserAllEvents } = require("./../utils/callGit");
 
 usersRouter.post("/add", async (ctx, next) => {
@@ -38,10 +39,16 @@ usersRouter.post("/add", async (ctx, next) => {
       res.name = name;
       res.lastCommitTime = commitData[0].commitDate;
       res.class_name = className;
-      console.log(res);
-      await Student.create(res);
+      
+      console.log(className)
+      // 班级人数 加1
+      Class.updateOne({ name: className }, { $inc: { stuNum: 1 } },(err) => {
+        console.log(err)
+      });
 
+      await Student.create(res);
       Commits.insertMany(commitData);
+
       ctx.body = {
         message: "添加成功",
         code: 1
@@ -67,7 +74,7 @@ usersRouter.get("/studentsList", async (ctx, next) => {
 
   if (data.length > 0) {
     ctx.body = {
-      message: "success",
+      message: "数据获取成功",
       code: 1,
       data
     };

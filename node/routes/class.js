@@ -3,7 +3,7 @@ const classRouter = new Router({ prefix: "/class" });
 const Class = require("./../models/class");
 
 classRouter.post("/add", async (ctx, next) => {
-  const params = ctx.request.body;
+  let params = ctx.request.body;
   console.log(params);
   let isNeed = true;
   await Class.findOne({ name: params.name }, async (err, doc) => {
@@ -16,6 +16,7 @@ classRouter.post("/add", async (ctx, next) => {
     }
   });
   if (isNeed) {
+    params.stuNum = 0
     const res = await Class.create(params);
     if (res) {
       ctx.body = {
