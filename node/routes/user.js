@@ -47,7 +47,6 @@ usersRouter.post("/add", async (ctx, next) => {
         code: 1
       };
     } else {
-      console.log('sss')
       ctx.body = {
         message: "添加失败",
         code: -1
@@ -56,8 +55,16 @@ usersRouter.post("/add", async (ctx, next) => {
   }
 });
 
-usersRouter.get("/AllStudentsList", async (ctx, next) => {
-  const data = await Student.find();
+usersRouter.get("/studentsList", async (ctx, next) => {
+  // console.log(ctx.request.query);
+  const className = ctx.request.query.className;
+  let data = {};
+  if (className) {
+    data = await Student.find({ class_name: className });
+  } else {
+    data = await Student.find();
+  }
+
   if (data.length > 0) {
     ctx.body = {
       message: "success",

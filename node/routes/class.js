@@ -4,13 +4,13 @@ const Class = require("./../models/class");
 
 classRouter.post("/add", async (ctx, next) => {
   const params = ctx.request.body;
-  // console.log(params);
+  console.log(params);
   let isNeed = true;
   await Class.findOne({ name: params.name }, async (err, doc) => {
     if (doc) {
       isNeed = false;
       ctx.body = {
-        messsage: "班级名已存在",
+        message: "班级已存在",
         code: 0
       };
     }
@@ -19,12 +19,12 @@ classRouter.post("/add", async (ctx, next) => {
     const res = await Class.create(params);
     if (res) {
       ctx.body = {
-        messsage: "添加成功",
+        message: "添加成功",
         code: 1
       };
     } else {
       ctx.body = {
-        messsage: "添加失败",
+        message: "添加失败",
         code: -1
       };
     }
@@ -40,7 +40,7 @@ classRouter.get("/list", async (ctx, next) => {
       };
     } else {
       ctx.body = {
-        messsage: '班级获取失败',
+        message: '班级获取失败',
         code: -1
       };
     }
