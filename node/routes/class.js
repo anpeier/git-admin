@@ -16,7 +16,7 @@ classRouter.post("/add", async (ctx, next) => {
     }
   });
   if (isNeed) {
-    params.stuNum = 0
+    params.stuNum = 0;
     const res = await Class.create(params);
     if (res) {
       ctx.body = {
@@ -34,15 +34,15 @@ classRouter.post("/add", async (ctx, next) => {
 
 classRouter.get("/list", async (ctx, next) => {
   await Class.find((err, doc) => {
-    if (doc) {
+    if (doc.length > 0) {
       ctx.body = {
         code: 1,
         data: doc
       };
     } else {
       ctx.body = {
-        message: '班级获取失败',
-        code: -1
+        message: "暂无数据",
+        code: 0
       };
     }
   });

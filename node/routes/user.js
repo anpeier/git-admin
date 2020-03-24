@@ -40,7 +40,7 @@ usersRouter.post("/add", async (ctx, next) => {
       res.lastCommitTime = commitData[0].commitDate;
       res.class_name = className;
       
-      console.log(className)
+      // console.log(className)
       // 班级人数 加1
       Class.updateOne({ name: className }, { $inc: { stuNum: 1 } },(err) => {
         console.log(err)
@@ -80,7 +80,8 @@ usersRouter.get("/studentsList", async (ctx, next) => {
     };
   } else {
     ctx.body = {
-      code: -1
+      code: 0,
+      message: '暂无数据'
     };
   }
 });

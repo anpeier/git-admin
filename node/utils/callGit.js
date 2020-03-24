@@ -3,7 +3,7 @@ const { Commits } = require("./../models/student");
 const axios = require("axios");
 const instance = axios.create({
   baseURL: "https://api.github.com/",
-  timeout: 5000,
+  // timeout: 5000,
   headers: { Accept: "application/vnd.github.v3+json" }
 });
 
