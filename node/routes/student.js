@@ -39,11 +39,11 @@ usersRouter.post("/add", async (ctx, next) => {
       res.name = name;
       res.lastCommitTime = commitData[0].commitDate;
       res.class_name = className;
-      
+
       // console.log(className)
       // 班级人数 加1
-      Class.updateOne({ name: className }, { $inc: { stuNum: 1 } },(err) => {
-        console.log(err)
+      Class.updateOne({ name: className }, { $inc: { stuNum: 1 } }, err => {
+        console.log(err);
       });
 
       await Student.create(res);
@@ -62,27 +62,55 @@ usersRouter.post("/add", async (ctx, next) => {
   }
 });
 
-usersRouter.get("/studentsList", async (ctx, next) => {
-  // console.log(ctx.request.query);
+usersRouter.get("/list", async (ctx, next) => {
   const className = ctx.request.query.className;
-  let data = {};
+  console.log(ctx.request.query)
+  let data = {},
+    total;
   if (className) {
-    data = await Student.find({ class_name: className });
+    const res = await Student.find({ class_name: className });
+    data.stuList = res;
+    data.total = await Student.countDocuments({ class_name: className });
   } else {
-    data = await Student.find();
+    const res = await Student.find();
+    data.stuList = res;
+    data.total = await Student.countDocuments();
   }
-
-  if (data.length > 0) {
+  console.log(data)
+  if (data.stuList.length > 0) {
     ctx.body = {
-      message: "数据获取成功",
+      message: "获取成功",
       code: 1,
       data
     };
   } else {
     ctx.body = {
       code: 0,
-      message: '暂无数据'
+      message: "暂无数据"
     };
+  }
+});
+
+usersRouter.get("/getStuById", async (ctx, next) => {
+  const id = ctx.request.query.id;
+  const data = await Student.find({ _id: id });
+  ctx.body = {
+    code: 1,
+    data
+  };
+});
+
+usersRouter.put("/updateStu", async (ctx, next) => {
+  const studentInfo = ctx.request.body.studentInfo;
+  const id = studentInfo._id;
+  const data = await Student.findByIdAndUpdate(
+    id,
+    { $set: studentInfo },
+    { new: true }
+  );
+  ctx.body = {
+    code: 1,
+    message: '更新成功'
   }
 });
 

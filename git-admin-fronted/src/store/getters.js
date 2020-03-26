@@ -7,5 +7,8 @@ export const classGetters = {
 export const studentGetters = {
   studentList(state) {
     return state.studentList;
+  },
+  studentInfo(state) {
+    return state.studentInfo
   }
 };

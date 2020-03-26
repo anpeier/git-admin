@@ -68,7 +68,9 @@ import { getClassList } from "./../api/class";
 import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      count: 1
+    };
   },
   computed: {
     ...mapGetters(["classList"])
@@ -78,21 +80,28 @@ export default {
   },
   methods: {
     toAddStudent() {
-      this.$router.push("/add");
+      this.$router.push("/student/add");
     },
     toStudentList(name) {
       this.$store.dispatch("getStudents");
-      this.$router.push("/list");
+      this.$router.push("/student/list");
     },
     ...mapActions(["getClass"]),
     toClassList() {
-      this.$router.push("/classList");
+      this.$router.push("/class/list");
     },
     toAddClass() {
-      this.$router.push("/addClass");
+      this.$router.push("/class/add");
     },
-    getStuByClass(name) {
-      this.$store.dispatch("getStudents", name);
+    getStuByClass(className) {
+      this.$store
+        .dispatch("getStudents", {
+          className,
+          count: this.count
+        })
+        .then(() => {
+          this.$router.push("/student/list");
+        });
     }
   }
 };

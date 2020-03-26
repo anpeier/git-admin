@@ -21,7 +21,7 @@ app.use(
   })
 );
 
-const users = require("./routes/user.js");
+const users = require("./routes/student.js");
 const classes = require("./routes/class.js");
 app.use(users.routes());
 app.use(classes.routes());
@@ -30,5 +30,5 @@ app.use(classes.routes());
 // app.use(router.allowedMethods())
 
 app.listen(9240, () => {
-  console.log("服务启动在3000端口");
+  console.log("服务启动在9240端口");
 });

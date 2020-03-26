@@ -14,6 +14,8 @@ const studentSchema = new mongoose.Schema(
     avatar: String,
     git_url: String,
     class_name: String,
+    phoneNum: String,
+    email: String,
     lastCommitTime: Date
   },
   { timestamps: { createdAt: "created", updatedAt: "updated" } }

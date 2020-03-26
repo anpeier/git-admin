@@ -14,6 +14,7 @@ http.interceptors.response.use(
       return res.data;
     } else if (res.code == 0) {
       Message.warning(res.message);
+      return Promise.resolve(res);
     } else {
       return Promise.reject(res);
     }

@@ -33,19 +33,11 @@ classRouter.post("/add", async (ctx, next) => {
 });
 
 classRouter.get("/list", async (ctx, next) => {
-  await Class.find((err, doc) => {
-    if (doc.length > 0) {
-      ctx.body = {
-        code: 1,
-        data: doc
-      };
-    } else {
-      ctx.body = {
-        message: "暂无数据",
-        code: 0
-      };
-    }
-  });
+  res = await Class.find();
+  ctx.body = {
+    code: 1,
+    data: res
+  };
 });
 
 module.exports = classRouter;

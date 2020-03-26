@@ -10,39 +10,51 @@
       <el-table-column prop="gitUserName" label="git用户名" width="180"></el-table-column>
       <el-table-column prop="class_name" label="班级"></el-table-column>
       <el-table-column label="最后提交时间">
+        <template slot-scope="scope">{{scope.row.lastCommitTime | date-filter}}</template>
+      </el-table-column>
+      <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
-          {{scope.row.lastCommitTime | date-filter}}
+          <el-button @click="handleClick(scope.row)" type="text">查看</el-button>
+          <el-button type="text" @click="upDateStu(scope.row)">编辑</el-button>
         </template>
       </el-table-column>
-      <el-table-column
-      fixed="right"
-      label="操作"
-      width="100">
-      <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text">查看</el-button>
-        <el-button type="text">编辑</el-button>
-      </template>
-    </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
 import { getStudentList } from "./../api/students";
-import { mapActions,mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
+      count: 1
     };
   },
   computed: {
-    ...mapGetters(['studentList'])
+    ...mapGetters(["studentList"])
   },
   mounted() {
-    this.getStudents();
+    if(!this.studentList.length) {
+      this.getStudents({
+      count: this.count
+    });
+    }
   },
   methods: {
-    ...mapActions(['getStudents'])
+    ...mapActions(["getStudents"]),
+    handleClick(stuInfo) {
+      console.log(stuInfo);
+    },
+    upDateStu(stuInfo) {
+      this.$store.dispatch("saveStuInfo", stuInfo);
+      this.$router.push({
+        path: "/student/edit",
+        query: {
+          id: stuInfo._id
+        }
+      });
+    }
   }
 };
 </script>

@@ -9,7 +9,9 @@ export default new Vuex.Store({
   state: {
     classList: [],
     studentList: [],
-    studentInfo: {}
+    stuTotal: 0,
+    studentInfo: {},
+    curStuCommits: []
   },
   mutations: {
     ...classMutations,

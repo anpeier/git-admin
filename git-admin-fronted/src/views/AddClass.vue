@@ -20,7 +20,7 @@ export default {
       addClass(this.name).then(() => {
         this.$message.success("添加成功");
         this.$store.dispatch("getClass");
-        this.$router.push("/classList");
+        this.$router.push("/class/list");
       });
     }
   }
