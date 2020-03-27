@@ -13,7 +13,7 @@ const studentSchema = new mongoose.Schema(
     },
     avatar: String,
     git_url: String,
-    class_name: String,
+    className: String,
     phoneNum: String,
     email: String,
     lastCommitTime: Date

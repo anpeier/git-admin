@@ -33,10 +33,35 @@ classRouter.post("/add", async (ctx, next) => {
 });
 
 classRouter.get("/list", async (ctx, next) => {
-  res = await Class.find();
+  const params = ctx.request.query;
+  res = await Class.find(params);
   ctx.body = {
     code: 1,
     data: res
+  };
+});
+
+classRouter.get("/getClaById", async (ctx, next) => {
+  const id = ctx.request.query.id;
+  const data = await Class.find({ _id: id });
+  ctx.body = {
+    message: "查询成功",
+    code: 1,
+    data
+  };
+});
+
+classRouter.put("/updateClaInfo", async (ctx, next) => {
+  const classInfo = ctx.request.body.classInfo;
+  const id = classInfo._id;
+  const data = await Class.findByIdAndUpdate(
+    id,
+    { $set: classInfo },
+    { new: true }
+  );
+  ctx.body = {
+    code: 1,
+    message: "更新成功"
   };
 });
 

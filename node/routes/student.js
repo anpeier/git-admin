@@ -63,20 +63,14 @@ usersRouter.post("/add", async (ctx, next) => {
 });
 
 usersRouter.get("/list", async (ctx, next) => {
-  const className = ctx.request.query.className;
-  console.log(ctx.request.query)
+  const params = ctx.request.query;
   let data = {},
     total;
-  if (className) {
-    const res = await Student.find({ class_name: className });
-    data.stuList = res;
-    data.total = await Student.countDocuments({ class_name: className });
-  } else {
-    const res = await Student.find();
-    data.stuList = res;
-    data.total = await Student.countDocuments();
-  }
-  console.log(data)
+  const res = await Student.find(params);
+  data.stuList = res;
+  data.total = await Student.countDocuments(params);
+
+  // console.log(data);
   if (data.stuList.length > 0) {
     ctx.body = {
       message: "获取成功",
@@ -110,8 +104,8 @@ usersRouter.put("/updateStu", async (ctx, next) => {
   );
   ctx.body = {
     code: 1,
-    message: '更新成功'
-  }
+    message: "更新成功"
+  };
 });
 
 module.exports = usersRouter;

@@ -12,7 +12,7 @@
         <el-input v-model="studentInfo.name"></el-input>
       </el-form-item>
       <el-form-item label="班级">
-        <el-select v-model="studentInfo.class_name" placeholder="请选择班级">
+        <el-select v-model="studentInfo.className" placeholder="请选择班级">
           <el-option
             v-for="item in classList"
             :label="item.name + '班'"
@@ -60,12 +60,6 @@ export default {
       rules: {
         phoneNum: [
           { required: true, message: "请输入手机号", trigger: "blur" },
-          {
-            type: "number",
-            required: true,
-            message: "请输入手机号",
-            trigger: "blur"
-          },
           { validator: checkPhoneNum, trigger: "blur" }
         ],
         email: [
@@ -87,7 +81,9 @@ export default {
     }
   },
   methods: {
-    cancle() {},
+    cancle() {
+      this.$router.push('/student/list')
+    },
     onSubmit(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {

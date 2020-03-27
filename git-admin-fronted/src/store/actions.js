@@ -1,15 +1,33 @@
-import { getClassList } from "./../api/class";
+import { getClassList, getClaById, updateClaInfo } from "./../api/class";
 import { getStudentList, getStuById, updateStu } from "./../api/students";
 export const classActions = {
   getClass({ commit }) {
     getClassList().then(res => {
       commit("saveClassList", res);
     });
+  },
+  saveClassInfo({ commit }, classInfo) {
+    commit("saveCurClassInfo", classInfo);
+  },
+  getClassById({ commit }, id) {
+    getClaById({
+      id
+    }).then(res => {
+      commit("saveCurClassInfo", res[0]);
+    });
+  },
+  updateClaInfo({ commit }, classInfo) {
+    updateClaInfo({
+      classInfo
+    }).then(() => {
+      commit("saveCurClassInfo", {});
+    });
   }
 };
 
 export const studentActions = {
   getStudents({ commit }, params) {
+    // console.log(params)
     getStudentList({
       params: {
         ...params
@@ -19,9 +37,7 @@ export const studentActions = {
       commit("saveStuTotal", res.total);
     });
   },
-  addStudentOne({ commit }, studentInfo) {
-    commit("addStudent", studentInfo);
-  },
+
   saveStuInfo({ commit }, studentInfo) {
     commit("saveStuInfo", studentInfo);
   },
@@ -33,11 +49,10 @@ export const studentActions = {
     });
   },
   updateStuInfo({ commit }, studentInfo) {
-    console.log(studentInfo);
     updateStu({
       studentInfo
     }).then(() => {
-      commit('saveStuInfo',{})
-    })
+      commit("saveStuInfo", {});
+    });
   }
 };

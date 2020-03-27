@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Message } from 'element-ui'
 const instance = axios.create({
-  timeout: 5000
+  timeout: 10000
 });
 
 export const searchGitUser = async gitname => {
@@ -9,7 +9,7 @@ export const searchGitUser = async gitname => {
   let res = await instance.get(url).then(res => {
     return res.data.items;
   }).catch((err) => {
-    Message.error(err)
+    Message.warning('请求失败，请稍后重试')
   });
   return res;
 };

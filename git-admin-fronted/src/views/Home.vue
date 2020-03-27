@@ -77,6 +77,7 @@ export default {
   },
   mounted() {
     this.getClass();
+    this.$store.dispatch('getStudents')
   },
   methods: {
     toAddStudent() {
@@ -96,8 +97,7 @@ export default {
     getStuByClass(className) {
       this.$store
         .dispatch("getStudents", {
-          className,
-          count: this.count
+          className
         })
         .then(() => {
           this.$router.push("/student/list");

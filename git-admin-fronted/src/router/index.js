@@ -46,6 +46,11 @@ const routes = [
         path: "add",
         name: "AddClass",
         component: () => import("./../views/AddClass.vue")
+      },
+      {
+        path: "edit/:id",
+        name: "EditClass",
+        component: () => import("./../views/EditClass.vue")
       }
     ]
   }

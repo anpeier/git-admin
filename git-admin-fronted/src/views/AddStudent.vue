@@ -78,8 +78,9 @@ export default {
           this.res = [];
           this.$message.success("添加成功");
           this.$store.dispatch("getClass");
-          this.$store.dispatch("addStudentOne", this.studentInfo);
-          this.$router.push("/list");
+          this.$store.dispatch("getStudents");
+          this.$store.dispatch("saveStuInfo",{});
+          this.$router.push("/student/list");
         })
         .catch(error => {
           this.showLoading = false;
@@ -92,6 +93,7 @@ export default {
 
 <style lang="scss">
 .addStudent {
+  width: 600px;
   h1 {
     font-size: 26px;
     margin-bottom: 10px;

@@ -26,7 +26,8 @@ export default {
       console.log(classInfo);
     },
     editClass(classInfo) {
-      console.log(classInfo);
+      this.$store.dispatch('saveClassInfo',classInfo)
+      this.$router.push(`/class/edit/${classInfo._id}`)
     }
   }
 };

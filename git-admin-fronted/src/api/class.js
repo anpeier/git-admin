@@ -6,3 +6,11 @@ export const getClassList = () => {
 export const addClass = name => {
   return http.post("class/add", { name });
 };
+
+export const getClaById = params => {
+  return http.get("class/getClaById", { params });
+};
+
+export const updateClaInfo = classInfo => {
+  return http.put("class/updateClaInfo", classInfo);
+};
