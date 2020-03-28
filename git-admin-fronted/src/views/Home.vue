@@ -67,6 +67,7 @@
 import { getClassList } from "./../api/class";
 import { mapActions, mapGetters } from "vuex";
 export default {
+  name: "Home",
   data() {
     return {
       count: 1
@@ -77,13 +78,12 @@ export default {
   },
   mounted() {
     this.getClass();
-    this.$store.dispatch('getStudents')
   },
   methods: {
     toAddStudent() {
       this.$router.push("/student/add");
     },
-    toStudentList(name) {
+    toStudentList() {
       this.$store.dispatch("getStudents");
       this.$router.push("/student/list");
     },
@@ -95,13 +95,10 @@ export default {
       this.$router.push("/class/add");
     },
     getStuByClass(className) {
-      this.$store
-        .dispatch("getStudents", {
-          className
-        })
-        .then(() => {
-          this.$router.push("/student/list");
-        });
+      this.$store.dispatch("getStudents", {
+        className
+      });
+      this.$router.push("/student/list")
     }
   }
 };

@@ -38,6 +38,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
+  name:"EditStu",
   data() {
     var checkPhoneNum = (rule, value, callback) => {
       let myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
@@ -66,8 +67,18 @@ export default {
           { required: true, message: "请输入邮箱", trigger: "blur" },
           { validator: checkEmail, trigger: "blur" }
         ]
-      }
+      },
+      path: "/student/list"
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    // 导航离开该组件的对应路由时调用
+    // 可以访问组件实例 `this`
+    console.log(from);
+    next(vm => {
+      // 通过 `vm` 访问组件实例
+      vm.path = from.path
+    });
   },
   computed: {
     ...mapGetters(["studentInfo"]),
@@ -82,7 +93,7 @@ export default {
   },
   methods: {
     cancle() {
-      this.$router.push('/student/list')
+      this.$router.push(this.path);
     },
     onSubmit(formName) {
       this.$refs[formName].validate(valid => {
@@ -105,7 +116,7 @@ export default {
             type: "success",
             message: "修改成功!"
           });
-          this.$router.push("/student/list");
+          this.$router.push(this.path);
         })
         .catch(() => {
           this.$message({

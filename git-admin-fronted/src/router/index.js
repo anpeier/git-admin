@@ -26,7 +26,7 @@ const routes = [
         component: () => import("./../views/AddStudent.vue")
       },
       {
-        path: 'edit',
+        path: "edit",
         name: "EditStu",
         component: () => import("./../views/EditStudent.vue")
       }
@@ -51,8 +51,22 @@ const routes = [
         path: "edit/:id",
         name: "EditClass",
         component: () => import("./../views/EditClass.vue")
+      },
+      {
+        path: "detail/:name",
+        name: "ClassDetail",
+        component: () => import("./../views/ClassDetail.vue")
       }
     ]
+  },
+  {
+    path: "/404",
+    name: "404",
+    component: () => import("./../views/404.vue")
+  },
+  {
+    path: "*",
+    redirect: "/404"
   }
 ];
 

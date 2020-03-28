@@ -17,17 +17,18 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "EditClass",
   computed: {
-    classInfo() {
-      return this.$store.state.classInfo;
-    }
+    ...mapGetters(["classInfo"])
   },
   mounted() {
     let id = this.$route.params.id;
     if (this.classInfo._id == null) {
-      this.$store.dispatch("getClassById", id);
+      this.$store.dispatch("getOneClass", {
+        _id: id
+      });
     }
   },
   methods: {
@@ -53,7 +54,7 @@ export default {
         });
     },
     cancle() {
-        this.$router.push('/class/list')
+      this.$router.push("/class/list");
     }
   }
 };

@@ -7,13 +7,14 @@ const http = axios.create({
 http.interceptors.response.use(
   response => {
     // 接口错误拦截
+    console.log(response);
     let res = response.data;
     console.log(res);
     if (res.code == 1) {
       // 成功
       return res.data;
     } else if (res.code == 0) {
-      Message.warning(res.message);
+      // Message.warning(res.message);
       return Promise.resolve(res);
     } else {
       return Promise.reject(res);

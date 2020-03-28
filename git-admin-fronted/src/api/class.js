@@ -7,10 +7,11 @@ export const addClass = name => {
   return http.post("class/add", { name });
 };
 
-export const getClaById = params => {
-  return http.get("class/getClaById", { params });
+export const getClassBy = params => {
+  return http.get("class/getOneClass", { params });
 };
 
 export const updateClaInfo = classInfo => {
   return http.put("class/updateClaInfo", classInfo);
 };
+

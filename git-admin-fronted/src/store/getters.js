@@ -1,6 +1,9 @@
 export const classGetters = {
   classList(state) {
     return state.classList;
+  },
+  classInfo(state) {
+    return state.classInfo;
   }
 };
 

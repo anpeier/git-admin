@@ -1,4 +1,4 @@
-import { getClassList, getClaById, updateClaInfo } from "./../api/class";
+import { getClassList, getClassBy, updateClaInfo } from "./../api/class";
 import { getStudentList, getStuById, updateStu } from "./../api/students";
 export const classActions = {
   getClass({ commit }) {
@@ -6,12 +6,10 @@ export const classActions = {
       commit("saveClassList", res);
     });
   },
-  saveClassInfo({ commit }, classInfo) {
-    commit("saveCurClassInfo", classInfo);
-  },
-  getClassById({ commit }, id) {
-    getClaById({
-      id
+  getOneClass({ commit }, params) {
+    console.log(params);
+    getClassBy({
+      ...params
     }).then(res => {
       commit("saveCurClassInfo", res[0]);
     });
@@ -27,11 +25,8 @@ export const classActions = {
 
 export const studentActions = {
   getStudents({ commit }, params) {
-    // console.log(params)
     getStudentList({
-      params: {
-        ...params
-      }
+      ...params
     }).then(res => {
       commit("saveStuList", res.stuList);
       commit("saveStuTotal", res.total);

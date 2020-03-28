@@ -41,15 +41,20 @@ classRouter.get("/list", async (ctx, next) => {
   };
 });
 
-classRouter.get("/getClaById", async (ctx, next) => {
-  const id = ctx.request.query.id;
-  const data = await Class.find({ _id: id });
+classRouter.get("/getOneClass", async (ctx, next) => {
+  const params = ctx.request.query;
+  console.log(params)
+  const data = await Class.find(params);
   ctx.body = {
     message: "查询成功",
     code: 1,
     data
   };
 });
+
+// classRouter.get("/getClaByName", (ctx, next) => {
+//   console.log(ctx.request.query.params)
+// })
 
 classRouter.put("/updateClaInfo", async (ctx, next) => {
   const classInfo = ctx.request.body.classInfo;

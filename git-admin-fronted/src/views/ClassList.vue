@@ -7,7 +7,7 @@
     </el-table-column>
     <el-table-column label="操作" width="200">
       <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text">查看</el-button>
+        <el-button @click="toClassDetail(scope.row)" type="text">查看</el-button>
         <el-button @click="editClass(scope.row)" type="text">编辑</el-button>
       </template>
     </el-table-column>
@@ -22,12 +22,12 @@ export default {
     ...mapGetters(["classList"])
   },
   methods: {
-    handleClick(classInfo) {
-      console.log(classInfo);
+    toClassDetail(classInfo) {
+      this.$router.push(`/class/detail/${classInfo.name}`);
     },
     editClass(classInfo) {
-      this.$store.dispatch('saveClassInfo',classInfo)
-      this.$router.push(`/class/edit/${classInfo._id}`)
+      this.$store.dispatch("saveClassInfo", classInfo);
+      this.$router.push(`/class/edit/${classInfo._id}`);
     }
   }
 };

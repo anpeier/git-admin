@@ -6,14 +6,6 @@ const cors = require("koa2-cors");
 const koaBody = require("koa-body");
 const db = require("./db/db");
 
-// 跨域
-// app.use(
-//   cors({
-//     origin: ["http://localhost:8080"],
-//     credentials: true
-//   })
-// );
-
 app.use(cors())
 
 // 接收post参数

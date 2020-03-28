@@ -7,9 +7,9 @@
 <script>
 import { getStudentList } from "./../api/students";
 import { mapActions, mapGetters } from "vuex";
-import StuList from './../components/StuList'
+import StuList from "./../components/StuList";
 export default {
-  name: 'Students',
+  name: "Students",
   components: {
     StuList
   },
@@ -22,12 +22,7 @@ export default {
     ...mapGetters(["studentList"])
   },
   mounted() {
-    // console.log()
-    // if (this.studentList.length == 0) {
-    //   this.getStudents({
-    //     count: this.count
-    //   });
-    // }
+    this.$store.dispatch("getStudents");
   },
   methods: {
     ...mapActions(["getStudents"])

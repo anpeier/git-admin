@@ -4,7 +4,7 @@ const addStudent = studentInfo => {
 };
 
 const getStudentList = params => {
-  return http.get("students/list", params);
+  return http.get("students/list", { params });
 };
 
 const getStuById = params => {
