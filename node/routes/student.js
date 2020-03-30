@@ -38,7 +38,7 @@ usersRouter.post("/add", async (ctx, next) => {
     if (commitData.length > 0 && res) {
       res.name = name;
       res.lastCommitTime = commitData[0].commitDate;
-      res.class_name = className;
+      res.className = className;
 
       // console.log(className)
       // 班级人数 加1
@@ -107,5 +107,21 @@ usersRouter.put("/updateStu", async (ctx, next) => {
     message: "更新成功"
   };
 });
+
+usersRouter.get('/commits',async(ctx,next) => {
+  const id = ctx.request.query.id
+  console.log(id)
+  const res = await Student.find({
+    _id: id
+  })
+  const data = await Commits.find({
+    gitUserName: res[0].gitUserName
+  }).sort({'commitDate': -1})
+  ctx.body = {
+    code: 1,
+    message: '查询成功',
+    data
+  }
+})
 
 module.exports = usersRouter;

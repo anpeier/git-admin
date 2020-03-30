@@ -14,8 +14,10 @@ export const studentMutations = {
   saveStuTotal(state, payload) {
     state.stuTotal = payload;
   },
-
   saveStuInfo(state, payload) {
     state.studentInfo = payload;
+  },
+  saveStuCommits(state, payload){
+    state.curStuCommits = payload
   }
 };

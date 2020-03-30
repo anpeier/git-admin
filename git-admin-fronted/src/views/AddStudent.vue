@@ -50,11 +50,11 @@ export default {
       keyword: "",
       res: [],
       showModel: false,
-      showLoading: false
+      showLoading: false,
+      studentInfo: {}
     };
   },
   computed: {
-    ...mapState(["studentInfo"]),
     ...mapGetters(["classList"])
   },
   mounted() {},
@@ -71,6 +71,7 @@ export default {
     addStudent() {
       this.showModel = false;
       this.showLoading = true;
+      console.log(this.studentInfo)
       addStudent(this.studentInfo)
         .then(() => {
           this.showLoading = false;
@@ -78,8 +79,6 @@ export default {
           this.res = [];
           this.$message.success("添加成功");
           this.$store.dispatch("getClass");
-          this.$store.dispatch("getStudents");
-          this.$store.dispatch("saveStuInfo",{});
           this.$router.push("/student/list");
         })
         .catch(error => {

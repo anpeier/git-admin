@@ -11,8 +11,7 @@ export default new Vuex.Store({
     classInfo: {},
     studentList: [],
     stuTotal: 0,
-    studentInfo: {},
-    curStuCommits: []
+    studentInfo: {}
   },
   mutations: {
     ...classMutations,

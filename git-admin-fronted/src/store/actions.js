@@ -1,5 +1,10 @@
 import { getClassList, getClassBy, updateClaInfo } from "./../api/class";
-import { getStudentList, getStuById, updateStu } from "./../api/students";
+import {
+  getStudentList,
+  getStuById,
+  updateStu,
+  getCommits
+} from "./../api/students";
 export const classActions = {
   getClass({ commit }) {
     getClassList().then(res => {
@@ -20,6 +25,9 @@ export const classActions = {
     }).then(() => {
       commit("saveCurClassInfo", {});
     });
+  },
+  saveClassInfo({commit},classInfo) {
+    commit('saveCurClassInfo',classInfo)
   }
 };
 
@@ -37,6 +45,7 @@ export const studentActions = {
     commit("saveStuInfo", studentInfo);
   },
   getStuInfoById({ commit }, id) {
+    console.log(id)
     getStuById({
       id
     }).then(res => {

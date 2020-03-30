@@ -15,4 +15,8 @@ const updateStu = studentInfo => {
   return http.put("students/updateStu", studentInfo);
 };
 
-export { addStudent, getStudentList, getStuById, updateStu };
+const getCommits = params => {
+  return http.get("students/commits", { params });
+};
+
+export { addStudent, getStudentList, getStuById, updateStu, getCommits };

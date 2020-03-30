@@ -25,12 +25,12 @@ export default {
   },
   formatTime(val) {
     const date = new Date(val);
-    const Y = date.getFullYear() + "年";
+    const Y = date.getFullYear() + "-";
     const M =
       (date.getMonth() + 1 < 10
         ? "0" + (date.getMonth() + 1)
-        : date.getMonth() + 1) + "月";
-    const D = date.getDate() + "日";
+        : date.getMonth() + 1) + "-";
+    const D = date.getDate();
     // h = date.getHours() + ":";
     // m = date.getMinutes() + ":";
     // s = date.getSeconds();

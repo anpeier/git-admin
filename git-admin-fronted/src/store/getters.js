@@ -12,6 +12,6 @@ export const studentGetters = {
     return state.studentList;
   },
   studentInfo(state) {
-    return state.studentInfo
+    return state.studentInfo;
   }
 };

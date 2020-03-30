@@ -30,7 +30,8 @@ export default {
   },
   methods: {
     handleClick(stuInfo) {
-      console.log(stuInfo);
+      this.$store.dispatch("saveStuInfo", stuInfo);
+      this.$router.push(`/student/detail/${stuInfo._id}`);
     },
     upDateStu(stuInfo) {
       this.$store.dispatch("saveStuInfo", stuInfo);

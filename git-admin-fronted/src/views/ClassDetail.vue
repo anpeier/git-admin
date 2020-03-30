@@ -19,7 +19,6 @@ export default {
     ...mapGetters(['classInfo'])
   },
   mounted() {
-    console.log(this.$router);
     const className = this.$route.params.name;
     this.getClassInfo(className);
   },
