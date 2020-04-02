@@ -6,7 +6,7 @@
 
 <script>
 import { getStudentList } from "./../api/students";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import StuList from "./../components/StuList";
 export default {
   name: "Students",
@@ -21,12 +21,6 @@ export default {
   computed: {
     ...mapGetters(["studentList"])
   },
-  mounted() {
-    this.$store.dispatch("getStudents");
-  },
-  methods: {
-    ...mapActions(["getStudents"])
-  }
 };
 </script>
 

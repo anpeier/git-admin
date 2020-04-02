@@ -65,7 +65,7 @@
 
 <script>
 import { getClassList } from "./../api/class";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   name: "Home",
   data() {
@@ -77,17 +77,21 @@ export default {
     ...mapGetters(["classList"])
   },
   mounted() {
-    this.getClass();
+    this.$store.dispatch("getClass").then(() => {
+      this.$store.dispatch("getStudents");
+    });
   },
   methods: {
     toAddStudent() {
       this.$router.push("/student/add");
     },
     toStudentList() {
-      this.$store.dispatch("getStudents");
-      this.$router.push("/student/list");
+      this.$store.dispatch("getStudents").then(() => {
+        if (this.$route.path !== "/student/list") {
+          this.$router.push("/student/list");
+        }
+      });
     },
-    ...mapActions(["getClass"]),
     toClassList() {
       this.$router.push("/class/list");
     },
@@ -95,10 +99,16 @@ export default {
       this.$router.push("/class/add");
     },
     getStuByClass(className) {
-      this.$store.dispatch("getStudents", {
-        className
-      });
-      this.$router.push("/student/list")
+      this.$store
+        .dispatch("getStudents", {
+          className
+        })
+        .then(() => {
+          if (this.$route.path !== "/student/list") {
+            console.log("aaa");
+            this.$router.push("/student/list");
+          }
+        });
     }
   }
 };

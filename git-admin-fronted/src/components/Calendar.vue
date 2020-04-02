@@ -7,8 +7,9 @@
 
 <script>
 import util from "./../utils";
-import { getCommits } from "./../api/students";
 import CommitList from "./CommitList";
+import echarts from "echarts";
+import { mapGetters } from "vuex";
 export default {
   name: "MyClendar",
   components: {
@@ -16,11 +17,13 @@ export default {
   },
   data() {
     return {
-      commits: [],
       myDate: {},
       rangeArr: [],
       dateCommit: []
     };
+  },
+  computed: {
+    ...mapGetters(["commits"])
   },
   props: {
     id: String
@@ -36,10 +39,7 @@ export default {
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
-      getCommits({
-        id: this.id
-      }).then(res => {
-        this.commits = res;
+      this.$store.dispatch("getCommitList", this.id).then(() => {
         this.myOptions();
         loading.close();
       });
@@ -55,10 +55,8 @@ export default {
       this.myDate = dateMap;
     },
     getVirtualMap() {
-      let endDate = +this.$echarts.number.parseDate(
-        util.formatTime(this.commits[0].commitDate)
-      );
-      let startDate = +this.$echarts.number.parseDate(
+      let endDate = +echarts.number.parseDate(util.formatTime(new Date()));
+      let startDate = +echarts.number.parseDate(
         endDate - 3600 * 24 * 1000 * 365
       );
       this.rangeArr.push(endDate, startDate);
@@ -76,9 +74,7 @@ export default {
     myOptions() {
       this.toMapCount();
       this.getVirtualMap();
-      let myCalendar = this.$echarts.init(
-        document.getElementById("myCalendar")
-      );
+      let myCalendar = echarts.init(document.getElementById("myCalendar"));
       let rangeArr = this.rangeArr;
       let dateCommit = this.dateCommit;
       console.log(dateCommit);

@@ -38,7 +38,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name:"EditStu",
+  name: "EditStu",
   data() {
     var checkPhoneNum = (rule, value, callback) => {
       let myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
@@ -77,7 +77,7 @@ export default {
     console.log(from);
     next(vm => {
       // 通过 `vm` 访问组件实例
-      vm.path = from.path
+      vm.path = from.path;
     });
   },
   computed: {
@@ -85,11 +85,8 @@ export default {
     ...mapGetters(["classList"])
   },
   mounted() {
-    this.id = this.$route.query.id;
-    if (this.studentInfo._id == null) {
-      // 页面刷新后重新拉取数据
-      this.$store.dispatch("getStuInfoById", this.id);
-    }
+    let id = this.$route.params.id;
+    this.$store.dispatch("getStuInfoById", id);
   },
   methods: {
     cancle() {
@@ -111,12 +108,13 @@ export default {
         type: "warning"
       })
         .then(() => {
-          this.$store.dispatch("updateStuInfo", this.studentInfo);
-          this.$message({
-            type: "success",
-            message: "修改成功!"
+          this.$store.dispatch("updateStuInfo", this.studentInfo).then(() => {
+            this.$message({
+              type: "success",
+              message: "修改成功!"
+            });
+            this.$router.push(this.path);
           });
-          this.$router.push(this.path);
         })
         .catch(() => {
           this.$message({

@@ -21,3 +21,12 @@ export const studentMutations = {
     state.curStuCommits = payload
   }
 };
+
+export const userMutations = {
+  saveToken(state, payload) {
+    state.token = payload
+  },
+  delToken(state) {
+    state.token = ""
+  }
+}

@@ -11,6 +11,11 @@ const routes = [
     redirect: "/student/list"
   },
   {
+    path: "/login",
+    name: "Login",
+    component: () => import("./../views/Login.vue")
+  },
+  {
     path: "/student",
     name: "Home",
     component: Home,
@@ -26,7 +31,7 @@ const routes = [
         component: () => import("./../views/AddStudent.vue")
       },
       {
-        path: "edit",
+        path: "edit/:id",
         name: "EditStu",
         component: () => import("./../views/EditStudent.vue")
       },

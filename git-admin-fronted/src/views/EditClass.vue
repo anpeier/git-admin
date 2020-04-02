@@ -39,12 +39,13 @@ export default {
         type: "warning"
       })
         .then(() => {
-          this.$store.dispatch("updateClaInfo", this.classInfo);
-          this.$message({
-            type: "success",
-            message: "修改成功!"
+          this.$store.dispatch("updateClaInfo", this.classInfo).then(() => {
+            this.$message({
+              type: "success",
+              message: "修改成功!"
+            });
+            this.$router.push("/class/list");
           });
-          this.$router.push("/class/list");
         })
         .catch(() => {
           this.$message({

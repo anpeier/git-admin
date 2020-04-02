@@ -1,10 +1,10 @@
 const Router = require("koa-router");
-const usersRouter = new Router({ prefix: "/students" });
+const studentRouter = new Router({ prefix: "/students" });
 const { Student, Commits } = require("./../models/student");
 const Class = require("./../models/class");
 const { getGitUserInfo, getUserAllEvents } = require("./../utils/callGit");
 
-usersRouter.post("/add", async (ctx, next) => {
+studentRouter.post("/add", async (ctx, next) => {
   const studentInfo = ctx.request.body;
   console.log(ctx.request.body);
   const gitUserName = studentInfo.gitUserName;
@@ -62,7 +62,7 @@ usersRouter.post("/add", async (ctx, next) => {
   }
 });
 
-usersRouter.get("/list", async (ctx, next) => {
+studentRouter.get("/list", async (ctx, next) => {
   const params = ctx.request.query;
   let data = {},
     total;
@@ -85,7 +85,7 @@ usersRouter.get("/list", async (ctx, next) => {
   }
 });
 
-usersRouter.get("/getStuById", async (ctx, next) => {
+studentRouter.get("/getStuById", async (ctx, next) => {
   const id = ctx.request.query.id;
   const data = await Student.find({ _id: id });
   ctx.body = {
@@ -94,7 +94,7 @@ usersRouter.get("/getStuById", async (ctx, next) => {
   };
 });
 
-usersRouter.put("/updateStu", async (ctx, next) => {
+studentRouter.put("/updateStu", async (ctx, next) => {
   const studentInfo = ctx.request.body.studentInfo;
   const id = studentInfo._id;
   const data = await Student.findByIdAndUpdate(
@@ -108,20 +108,20 @@ usersRouter.put("/updateStu", async (ctx, next) => {
   };
 });
 
-usersRouter.get('/commits',async(ctx,next) => {
-  const id = ctx.request.query.id
-  console.log(id)
+studentRouter.get("/commits", async (ctx, next) => {
+  const id = ctx.request.query.id;
+  console.log(id);
   const res = await Student.find({
     _id: id
-  })
+  });
   const data = await Commits.find({
     gitUserName: res[0].gitUserName
-  }).sort({'commitDate': -1})
+  }).sort({ commitDate: -1 });
   ctx.body = {
     code: 1,
-    message: '查询成功',
+    message: "查询成功",
     data
-  }
-})
+  };
+});
 
-module.exports = usersRouter;
+module.exports = studentRouter;

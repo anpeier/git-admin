@@ -13,5 +13,14 @@ export const studentGetters = {
   },
   studentInfo(state) {
     return state.studentInfo;
+  },
+  commits(state) {
+    return state.curStuCommits;
+  }
+};
+
+export const userGetters = {
+  getToken(state) {
+    return state.token;
   }
 };

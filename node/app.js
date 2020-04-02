@@ -5,20 +5,24 @@ const router = new Router();
 const cors = require("koa2-cors");
 const koaBody = require("koa-body");
 const db = require("./db/db");
+const checkToken = require('./utils/token/checkToken')
 
 app.use(cors())
 
 // 接收post参数
 app.use(
   koaBody({
+    // 文件上传参数
     multipart: true
   })
 );
-
-const users = require("./routes/student.js");
+app.use(checkToken)
+const student = require("./routes/student.js");
 const classes = require("./routes/class.js");
-app.use(users.routes());
+const user = require("./routes/user.js");
+app.use(student.routes());
 app.use(classes.routes());
+app.use(user.routes());
 
 // app.use(router.routes())
 // app.use(router.allowedMethods())

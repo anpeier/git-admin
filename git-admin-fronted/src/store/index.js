@@ -1,8 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { classActions, studentActions } from "./actions";
-import { classMutations, studentMutations } from "./mutations";
-import { classGetters, studentGetters } from "./getters";
+import { classActions, studentActions, userActions } from "./actions";
+import { classMutations, studentMutations, userMutations } from "./mutations";
+import { classGetters, studentGetters, userGetters } from "./getters";
+import { getToken } from "./../utils/auth";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -11,18 +12,23 @@ export default new Vuex.Store({
     classInfo: {},
     studentList: [],
     stuTotal: 0,
-    studentInfo: {}
+    studentInfo: {},
+    curStuCommits: [],
+    token: getToken()
   },
   mutations: {
     ...classMutations,
-    ...studentMutations
+    ...studentMutations,
+    ...userMutations
   },
   actions: {
     ...classActions,
-    ...studentActions
+    ...studentActions,
+    ...userActions
   },
   getters: {
     ...classGetters,
-    ...studentGetters
+    ...studentGetters,
+    ...userGetters
   }
 });
