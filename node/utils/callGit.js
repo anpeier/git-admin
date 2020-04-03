@@ -33,23 +33,51 @@ const getUserAllEvents = async (ctx, gitName) => {
         i++;
         let result = res.data.filter(item => item.type == "PushEvent");
         let data = [];
-        result.forEach(item => {
+        for (const item of result) {
           let commits = item.payload.commits;
           let commitDate = item.created_at;
           let obj = {
             commits,
             commitDate,
-            'gitUserName': gitName
+            gitUserName: gitName
           };
           data.push(obj);
-        });
+        }
         return data;
       });
     data = data.concat(res);
   }
   return data;
 };
+
+const getStuCurEvents = async gitUserName => {
+  let result = [];
+  const res = await instance
+    .get(`/users/${gitUserName}/events`)
+    .then(res => {
+      result = res.data.filter(item => item.type == "PushEvent");
+    })
+    .catch(error => {
+      console.log(error);
+      setTimeout(() => {
+        getStuCurEvents(gitUserName);
+      }, 30 * 60 * 1000);
+    });
+  let data = [];
+  for (const item of result) {
+    let commits = item.payload.commits;
+    let commitDate = item.created_at;
+    let obj = {
+      commits,
+      commitDate,
+      gitUserName
+    };
+    data.push(obj);
+  }
+  return data;
+};
 module.exports = {
   getGitUserInfo,
-  getUserAllEvents
+  getUserAllEvents,
+  getStuCurEvents
 };
