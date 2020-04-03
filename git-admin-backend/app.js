@@ -6,7 +6,7 @@ const cors = require("koa2-cors");
 const koaBody = require("koa-body");
 const db = require("./db/db");
 const checkToken = require("./utils/token/checkToken");
-const updateDB = require("./utils/updateDb");
+const cron = require("./utils/updateDb");
 const logger = require("./logger/logs")(app);
 
 app.use(cors());
