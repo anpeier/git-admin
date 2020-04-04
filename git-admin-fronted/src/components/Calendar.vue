@@ -51,7 +51,7 @@ export default {
         let count = dateMap.get(date);
         dateMap.set(date, count == null || count == undefined ? 1 : count + 1);
       });
-      console.log(dateMap);
+      // console.log(dateMap);
       this.myDate = dateMap;
     },
     getVirtualMap() {
@@ -77,7 +77,7 @@ export default {
       let myCalendar = echarts.init(document.getElementById("myCalendar"));
       let rangeArr = this.rangeArr;
       let dateCommit = this.dateCommit;
-      console.log(dateCommit);
+      // console.log(dateCommit);
       let option = {
         title: {
           top: 0,

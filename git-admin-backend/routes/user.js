@@ -16,7 +16,7 @@ UserRouter.post("/login", async (ctx, next) => {
   } else {
     ctx.body = {
       code: -1,
-      message: "没有该用户"
+      message: "账号名或密码错误"
     };
   }
 });

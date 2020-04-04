@@ -18,9 +18,6 @@ export default {
   props: {
     commitList: Array
   },
-  mounted() {
-    console.log(this.commitList);
-  }
 };
 </script>
 

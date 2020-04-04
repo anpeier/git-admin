@@ -9,7 +9,7 @@ const http = axios.create({
 
 http.interceptors.request.use(
   config => {
-    console.log(store.getters.getToken);
+    // console.log(store.getters.getToken);
     if (store.getters.getToken) {
       config.headers["lv-token"] = getToken();
     }
@@ -23,7 +23,7 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   response => {
     // 接口错误拦截
-    console.log(response);
+    // console.log(response);
     let res = response.data;
     if (res.code == 1) {
       // 成功
