@@ -3,7 +3,9 @@ import {
   getStudentList,
   getStuById,
   updateStu,
-  getCommits
+  getCommits,
+  getRemindStu,
+  sendRemind,
 } from "./../api/students";
 import { login } from "./../api/user";
 import { setToken, removeToken } from "./../utils/auth.js";
@@ -11,11 +13,11 @@ export const classActions = {
   getClass({ commit }) {
     return new Promise((resolve, reject) => {
       getClassList()
-        .then(res => {
+        .then((res) => {
           commit("saveClassList", res);
           resolve();
         })
-        .catch(error => {
+        .catch((error) => {
           reject(error);
         });
     });
@@ -23,13 +25,13 @@ export const classActions = {
   getOneClass({ commit }, params) {
     return new Promise((resolve, reject) => {
       getClassBy({
-        ...params
+        ...params,
       })
-        .then(res => {
+        .then((res) => {
           commit("saveCurClassInfo", res[0]);
           resolve();
         })
-        .catch(error => {
+        .catch((error) => {
           reject(error);
         });
     });
@@ -37,34 +39,34 @@ export const classActions = {
   updateClaInfo({ commit }, classInfo) {
     return new Promise((resolve, reject) => {
       updateClaInfo({
-        classInfo
+        classInfo,
       })
         .then(() => {
           commit("saveCurClassInfo", {});
           resolve();
         })
-        .catch(error => {
+        .catch((error) => {
           reject(error);
         });
     });
   },
   saveClassInfo({ commit }, classInfo) {
     commit("saveCurClassInfo", classInfo);
-  }
+  },
 };
 
 export const studentActions = {
   getStudents({ commit }, params) {
     return new Promise((resolve, reject) => {
       getStudentList({
-        ...params
+        ...params,
       })
-        .then(res => {
+        .then((res) => {
           commit("saveStuList", res.stuList);
           commit("saveStuTotal", res.total);
           resolve();
         })
-        .catch(error => {
+        .catch((error) => {
           reject(error);
         });
     });
@@ -76,13 +78,13 @@ export const studentActions = {
   getStuInfoById({ commit }, id) {
     return new Promise((resolve, reject) => {
       getStuById({
-        id
+        id,
       })
-        .then(res => {
+        .then((res) => {
           commit("saveStuInfo", res[0]);
           resolve();
         })
-        .catch(error => {
+        .catch((error) => {
           reject(error);
         });
     });
@@ -90,14 +92,14 @@ export const studentActions = {
   updateStuInfo({ commit, dispatch }, studentInfo) {
     return new Promise((resolve, reject) => {
       updateStu({
-        studentInfo
+        studentInfo,
       })
         .then(() => {
           commit("saveStuInfo", {});
           dispatch("getStudents");
           resolve();
         })
-        .catch(err => {
+        .catch((err) => {
           reject(err);
         });
     });
@@ -105,17 +107,50 @@ export const studentActions = {
   getCommitList({ commit }, id) {
     return new Promise((resolve, reject) => {
       getCommits({
-        id
+        id,
       })
-        .then(res => {
+        .then((res) => {
           commit("saveStuCommits", res);
           resolve();
         })
-        .catch(error => {
+        .catch((error) => {
           reject(error);
         });
     });
-  }
+  },
+  getRemindList({ commit }) {
+    return new Promise((resolve, reject) => {
+      getRemindStu()
+        .then((res) => {
+          for (const item of res) {
+            // 设置提醒状态 true：需要提醒 false：不需要提醒
+            item.status = true;
+          }
+          commit("saveRemindList", res);
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
+  remind({}, stuArr) {
+    const params = JSON.stringify(stuArr);
+    console.log(params);
+    return new Promise((resolve, reject) => {
+      sendRemind({
+        params,
+      })
+        .then((res) => {
+          console.log(res);
+          resolve();
+        })
+        .catch((error) => {
+          console.log(error);
+          reject(error);
+        });
+    });
+  },
 };
 
 export const userActions = {
@@ -124,23 +159,23 @@ export const userActions = {
     return new Promise((resolve, reject) => {
       login({
         username: username.trim(),
-        password: pwd
+        password: pwd,
       })
-        .then(res => {
+        .then((res) => {
           commit("saveToken", res.token);
           setToken(res.token);
           resolve();
         })
-        .catch(err => {
+        .catch((err) => {
           reject(err);
         });
     });
   },
   delToken({ commit }) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       commit("delToken");
       removeToken();
       resolve();
     });
-  }
+  },
 };

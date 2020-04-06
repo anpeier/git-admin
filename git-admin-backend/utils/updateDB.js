@@ -13,7 +13,7 @@ const updateDB = async () => {
       commitDate: -1,
     });
     const res = await getStuCurEvents(student.gitUserName);
-    console.log(res);
+    // console.log(res);
     let needInsertData = [];
     needInsertData = res.filter((item) => {
       return (
@@ -21,6 +21,15 @@ const updateDB = async () => {
       );
     });
     if (needInsertData.length) {
+      await Student.findByIdAndUpdate(
+        student._id,
+        {
+          $set: {
+            lastCommitTime: needInsertData[0].commitDate,
+          },
+        },
+        { new: true }
+      );
       await Commits.insertMany(needInsertData);
     } else {
       if (
@@ -30,12 +39,15 @@ const updateDB = async () => {
         res.length
       ) {
         console.log(student.email);
-        sendEmail(student.email);
+        sendEmail(student.email, student.name);
       }
     }
   }
 };
 
+// setTimeout(() => {
+//   updateDB();
+// }, 1000);
 cron.schedule("00 00 00 * * *", () => {
   updateDB();
 });

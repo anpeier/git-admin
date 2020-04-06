@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import { searchGitUser } from "./../api/gitUsers.js";
-import { addStudent } from "./../api/students.js";
+import { searchGitUser } from "@/api/gitUsers.js";
+import { addStudent } from "@/api/students.js";
 import { mapGetters, mapState } from "vuex";
 export default {
   components: {},

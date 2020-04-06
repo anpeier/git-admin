@@ -4,7 +4,7 @@ export const classGetters = {
   },
   classInfo(state) {
     return state.classInfo;
-  }
+  },
 };
 
 export const studentGetters = {
@@ -16,11 +16,14 @@ export const studentGetters = {
   },
   commits(state) {
     return state.curStuCommits;
-  }
+  },
+  remindList(state) {
+    return state.remindList;
+  },
 };
 
 export const userGetters = {
   getToken(state) {
     return state.token;
-  }
+  },
 };

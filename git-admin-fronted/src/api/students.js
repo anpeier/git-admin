@@ -1,22 +1,39 @@
 import http from "./../http";
-const addStudent = studentInfo => {
+const addStudent = (studentInfo) => {
   return http.post("students/add", studentInfo);
 };
 
-const getStudentList = params => {
+const getStudentList = (params) => {
   return http.get("students/list", { params });
 };
 
-const getStuById = params => {
+const getStuById = (params) => {
   return http.get("students/getStuById", { params });
 };
 
-const updateStu = studentInfo => {
+const updateStu = (studentInfo) => {
   return http.put("students/updateStu", studentInfo);
 };
 
-const getCommits = params => {
+const getCommits = (params) => {
   return http.get("students/commits", { params });
 };
 
-export { addStudent, getStudentList, getStuById, updateStu, getCommits };
+const getRemindStu = () => {
+  return http.get("students/getNoCodingStu");
+};
+
+const sendRemind = (params) => {
+  console.log(params)
+  return http.get("students/sendEmail", { params });
+};
+
+export {
+  addStudent,
+  getStudentList,
+  getStuById,
+  updateStu,
+  getCommits,
+  getRemindStu,
+  sendRemind,
+};

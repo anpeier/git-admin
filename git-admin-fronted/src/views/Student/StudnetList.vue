@@ -1,13 +1,12 @@
 <template>
-  <div>
+  <div class="StudentList">
     <stu-list :stuList="studentList"></stu-list>
   </div>
 </template>
 
 <script>
-import { getStudentList } from "./../api/students";
 import { mapGetters } from "vuex";
-import StuList from "./../components/StuList";
+import StuList from "@/components/StuList";
 export default {
   name: "Students",
   components: {

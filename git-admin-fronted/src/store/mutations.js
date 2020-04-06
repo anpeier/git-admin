@@ -2,9 +2,9 @@ export const classMutations = {
   saveClassList(state, payload) {
     state.classList = payload;
   },
-  saveCurClassInfo(state, payload){
-    state.classInfo = payload
-  }
+  saveCurClassInfo(state, payload) {
+    state.classInfo = payload;
+  },
 };
 
 export const studentMutations = {
@@ -17,16 +17,19 @@ export const studentMutations = {
   saveStuInfo(state, payload) {
     state.studentInfo = payload;
   },
-  saveStuCommits(state, payload){
-    state.curStuCommits = payload
-  }
+  saveStuCommits(state, payload) {
+    state.curStuCommits = payload;
+  },
+  saveRemindList(state, payload) {
+    state.remindList = payload;
+  },
 };
 
 export const userMutations = {
   saveToken(state, payload) {
-    state.token = payload
+    state.token = payload;
   },
   delToken(state) {
-    state.token = ""
-  }
-}
+    state.token = "";
+  },
+};

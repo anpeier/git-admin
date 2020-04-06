@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import StudnetList from "../views/StudnetList.vue";
+import StudnetList from "../views/Student/StudnetList.vue";
 
 Vue.use(VueRouter);
 
@@ -31,7 +31,7 @@ const routes = [
       {
         path: "add",
         name: "Add",
-        component: () => import("./../views/AddStudent.vue"),
+        component: () => import("./../views/Student/AddStudent.vue"),
         meta: {
           title: "新增学生",
         },
@@ -39,7 +39,7 @@ const routes = [
       {
         path: "edit/:id",
         name: "EditStu",
-        component: () => import("./../views/EditStudent.vue"),
+        component: () => import("./../views/Student/EditStudent.vue"),
         meta: {
           title: "编辑信息",
         },
@@ -47,9 +47,17 @@ const routes = [
       {
         path: "detail/:id",
         name: "StuDetail",
-        component: () => import("./../views/StuDetail.vue"),
+        component: () => import("./../views/Student/StuDetail.vue"),
         meta: {
           title: "学生详情",
+        },
+      },
+      {
+        path: "remind",
+        name: "RemindStu",
+        component: () => import("./../views/Student/RemindStu.vue"),
+        meta: {
+          title: "提醒列表",
         },
       },
     ],
@@ -62,7 +70,7 @@ const routes = [
       {
         path: "list",
         name: "ClassList",
-        component: () => import("./../views/ClassList.vue"),
+        component: () => import("./../views/Class/ClassList.vue"),
         meta: {
           title: "班级列表",
         },
@@ -70,7 +78,7 @@ const routes = [
       {
         path: "add",
         name: "AddClass",
-        component: () => import("./../views/AddClass.vue"),
+        component: () => import("./../views/Class/AddClass.vue"),
         meta: {
           title: "新增班级",
         },
@@ -78,7 +86,7 @@ const routes = [
       {
         path: "edit/:id",
         name: "EditClass",
-        component: () => import("./../views/EditClass.vue"),
+        component: () => import("./../views/Class/EditClass.vue"),
         meta: {
           title: "班级编辑",
         },
@@ -86,7 +94,7 @@ const routes = [
       {
         path: "detail/:name",
         name: "ClassDetail",
-        component: () => import("./../views/ClassDetail.vue"),
+        component: () => import("./../views/Class/ClassDetail.vue"),
         meta: {
           title: "班级详情",
         },

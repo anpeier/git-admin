@@ -23,7 +23,7 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   response => {
     // 接口错误拦截
-    // console.log(response);
+    console.log(response);
     let res = response.data;
     if (res.code == 1) {
       // 成功

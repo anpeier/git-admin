@@ -14,8 +14,17 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text">查看</el-button>
-          <el-button type="text" @click="upDateStu(scope.row)">编辑</el-button>
+          <div v-if="btnType==1">
+            <el-button @click="handleClick(scope.row)" type="text">查看</el-button>
+            <el-button type="text" @click="upDateStu(scope.row)">编辑</el-button>
+          </div>
+          <div v-else>
+            <el-button
+              :disabled="!scope.row.status"
+              @click="$emit('remind',scope.row)"
+              type="text"
+            >{{scope.row.status?'提醒':'已提醒'}}</el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -26,7 +35,11 @@
 export default {
   name: "StuList",
   props: {
-    stuList: Array
+    stuList: Array,
+    btnType: {
+      type: Number,
+      default: 1
+    }
   },
   methods: {
     handleClick(stuInfo) {

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import StuList from "./../components/StuList";
+import StuList from "@/components/StuList";
 import { mapGetters } from "vuex";
 export default {
   name: "ClassDetail",

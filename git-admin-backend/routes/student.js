@@ -3,6 +3,7 @@ const studentRouter = new Router({ prefix: "/students" });
 const { Student, Commits } = require("./../models/student");
 const Class = require("./../models/class");
 const { getGitUserInfo, getUserAllEvents } = require("./../utils/callGit");
+const sendEmail = require("./../utils/sendEmail");
 
 studentRouter.post("/add", async (ctx, next) => {
   const studentInfo = ctx.request.body;
@@ -17,7 +18,7 @@ studentRouter.post("/add", async (ctx, next) => {
       isNeedReq = false;
       ctx.body = {
         message: "学生已存在",
-        code: 0
+        code: 0,
       };
     }
   });
@@ -42,7 +43,7 @@ studentRouter.post("/add", async (ctx, next) => {
 
       // console.log(className)
       // 班级人数 加1
-      Class.updateOne({ name: className }, { $inc: { stuNum: 1 } }, err => {
+      Class.updateOne({ name: className }, { $inc: { stuNum: 1 } }, (err) => {
         console.log(err);
       });
 
@@ -51,12 +52,12 @@ studentRouter.post("/add", async (ctx, next) => {
 
       ctx.body = {
         message: "添加成功",
-        code: 1
+        code: 1,
       };
     } else {
       ctx.body = {
         message: "添加失败",
-        code: -1
+        code: -1,
       };
     }
   }
@@ -75,12 +76,12 @@ studentRouter.get("/list", async (ctx, next) => {
     ctx.body = {
       message: "获取成功",
       code: 1,
-      data
+      data,
     };
   } else {
     ctx.body = {
       code: 0,
-      message: "暂无数据"
+      message: "暂无数据",
     };
   }
 });
@@ -90,7 +91,7 @@ studentRouter.get("/getStuById", async (ctx, next) => {
   const data = await Student.find({ _id: id });
   ctx.body = {
     code: 1,
-    data
+    data,
   };
 });
 
@@ -104,7 +105,7 @@ studentRouter.put("/updateStu", async (ctx, next) => {
   );
   ctx.body = {
     code: 1,
-    message: "更新成功"
+    message: "更新成功",
   };
 });
 
@@ -112,15 +113,39 @@ studentRouter.get("/commits", async (ctx, next) => {
   const id = ctx.request.query.id;
   console.log(id);
   const res = await Student.find({
-    _id: id
+    _id: id,
   });
   const data = await Commits.find({
-    gitUserName: res[0].gitUserName
+    gitUserName: res[0].gitUserName,
   }).sort({ commitDate: -1 });
   ctx.body = {
     code: 1,
     message: "查询成功",
-    data
+    data,
+  };
+});
+
+studentRouter.get("/getNoCodingStu", async (ctx, next) => {
+  const data = await Student.find({
+    lastCommitTime: {
+      $lt: Date.now() - 60 * 60,
+      // $lt: Date.now() - 60 * 60 * 24 * 3 * 1000,
+    },
+  });
+  ctx.body = {
+    code: 1,
+    data,
+  };
+});
+
+studentRouter.get("/sendEmail", async (ctx, next) => {
+  const params = JSON.parse(ctx.request.query.params);
+  for (const item of params) {
+    sendEmail(item.email, item.name);
+  }
+  ctx.body = {
+    code: 1,
+    message: "发送成功",
   };
 });
 

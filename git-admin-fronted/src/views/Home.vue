@@ -14,7 +14,10 @@
               <el-menu-item index="1-1-1" @click="toStudentList">
                 <i class="el-icon-user"></i>学生列表
               </el-menu-item>
-              <el-menu-item index="1-1-2" @click="toAddStudent">
+              <el-menu-item index="1-1-2" @click="toRemindStu">
+                <i class="el-icon-bell"></i>提醒学生
+              </el-menu-item>
+              <el-menu-item index="1-1-3" @click="toAddStudent">
                 <i class="el-icon-circle-plus-outline"></i>新增学生
               </el-menu-item>
             </el-submenu>
@@ -59,6 +62,7 @@
   height: 100%;
   min-height: 600px;
   width: 100%;
+  // min-width: ;
   border: 1px solid #eee;
   .el-header {
     .breadcrumb {
@@ -129,6 +133,9 @@ export default {
             this.$router.push("/student/list");
           }
         });
+    },
+    toRemindStu(){
+      this.$router.push('/student/remind')
     }
   }
 };

@@ -35,7 +35,7 @@ export default {
     getCommitList() {
       const loading = this.$loading({
         lock: true,
-        text: "Loading",
+        text: "正在生成提交日历，请稍候",
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });

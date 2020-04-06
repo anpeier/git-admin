@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import MyCalendar from "./../components/Calendar";
+import MyCalendar from "@/components/Calendar";
 import { mapGetters } from "vuex";
 export default {
   data() {

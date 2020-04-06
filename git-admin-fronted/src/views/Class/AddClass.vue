@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { addClass } from "./../api/class";
+import { addClass } from "@/api/class";
 export default {
   data() {
     return {
