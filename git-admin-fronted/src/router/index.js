@@ -104,6 +104,9 @@ const routes = [
   {
     path: "/404",
     name: "404",
+    meta: {
+      title: "404",
+    },
     component: () => import("./../views/404.vue"),
   },
   {
@@ -116,6 +119,11 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title;
+  next();
 });
 
 export default router;

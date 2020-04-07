@@ -128,8 +128,7 @@ studentRouter.get("/commits", async (ctx, next) => {
 studentRouter.get("/getNoCodingStu", async (ctx, next) => {
   const data = await Student.find({
     lastCommitTime: {
-      $lt: Date.now() - 60 * 60,
-      // $lt: Date.now() - 60 * 60 * 24 * 3 * 1000,
+      $lt: Date.now() - 60 * 60 * 24 * 3 * 1000,
     },
   });
   ctx.body = {
