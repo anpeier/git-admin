@@ -19,6 +19,6 @@
     "koa2-cors": "^2.0.6",
     "mongoose": "^5.9.5",
     "node-cron": "^2.0.3",
-    "nodemailer": "^6.4.6"
+    "nodemailer": "^6.4.16"
   }
 }
